@@ -52,6 +52,29 @@ dev_pre = [
 [project.entry-points."galter_subjects_utils.cli"]
 invenio_subjects_mesh_common = "invenio_subjects_mesh_common.cli:mesh"
 
+[tool.check-manifest]
+ignore = [
+    ".*-requirements.txt",
+    "*.bin",
+    "*.gitkeep",
+    ".venv/",
+    ".editorconfig",
+    ".github/",
+    "tasks.py"
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.pydocstyle]
+add_ignore = ["D401", "D403"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+# ATTN: Remove the cov options when using breakpoint() since it interferes
+addopts = '--isort --pydocstyle --pycodestyle --doctest-glob="*.rst" --doctest-modules --cov=invenio_subjects_mesh_common --cov-report=term-missing'
+testpaths = ["tests", "invenio_subjects_mesh_common"]
+
 # Only setuptools usage
 [tool.setuptools]
 packages = ["invenio_subjects_mesh_common"]
@@ -66,23 +89,3 @@ conflicts = [
       { extra = "dev_pre" },
     ],
 ]
-
-[tool.check-manifest]
-ignore = [
-    ".*-requirements.txt",
-    "*.bin",
-    "*.gitkeep",
-    ".venv/",
-    ".editorconfig",
-    ".github/",
-    "tasks.py"
-]
-
-[tool.pytest.ini_options]
-minversion = "6.0"
-# ATTN: Remove the cov options when using breakpoint() since it interferes
-addopts = '--isort --pydocstyle --pycodestyle --doctest-glob="*.rst" --doctest-modules --cov=invenio_subjects_mesh_common --cov-report=term-missing'
-testpaths = ["tests", "invenio_subjects_mesh_common"]
-
-[tool.pydocstyle]
-add_ignore = ["D401", "D403"]

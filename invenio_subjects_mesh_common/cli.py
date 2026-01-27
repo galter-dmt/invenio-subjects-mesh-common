@@ -14,7 +14,6 @@ from pathlib import Path
 
 import click
 from flask.cli import with_appcontext
-
 from galter_subjects_utils.adapter import converted_to_subjects
 from galter_subjects_utils.deltor import DeltasGenerator
 from galter_subjects_utils.keeptrace import KeepTrace
