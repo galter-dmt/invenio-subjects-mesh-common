@@ -20,7 +20,8 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "galter-subjects-utils>=0.7.0,<2.0"
+    "galter-subjects-utils>=0.7.0,<2.0",
+    "requests>=2.32.5",
 ]
 description = "Common MeSH subject terms functionality"
 keywords = ["invenio", "inveniordm", "subjects", "MeSH"]
@@ -29,7 +30,7 @@ name = "invenio-subjects-mesh-common"
 readme = "README.md"
 requires-python = ">=3.11"
 urls = {Repository = "https://github.com/galter-dmt/invenio-subjects-mesh-common"}
-version = "0.1.0"
+version = "0.2.0"
 
 [project.optional-dependencies]
 dev = [
