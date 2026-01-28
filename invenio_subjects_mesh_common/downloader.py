@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2024 Northwestern University.
+# Copyright (C) 2021-2026 Northwestern University.
 #
 # invenio-subjects-mesh-common is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,84 +8,142 @@
 
 """Download MeSH files."""
 
-from datetime import date
+import requests
 
-from galter_subjects_utils.downloader import download_file
+
+class RequestsDownloader:
+    """Download engine using the requests library and aware of NLM quirks."""
+
+    def download_file(self, url, dest_path):
+        """Perform download and raise if issue."""
+        with requests.get(url, stream=True) as resp:
+            resp.raise_for_status()
+
+            # NLM site doesn't return a 404 in some cases, but rather redirects
+            # to an "Error page" so we have to check if such redirect happened
+            # Unclear if this is an error on their part, so won't regression
+            # test against it.
+            if len(resp.history) != 0:
+                location = resp.history[0].headers.get("Location")
+                if location == "https://www.nlm.nih.gov/cgi/archive/error.cgi":
+                    raise Exception(f"{url} doesn't exist.")
+
+            with open(dest_path, 'wb') as f:
+                for chunk in resp.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+
+        return dest_path
+
+
+class MeSHFileToDownload:
+    """MeSH file to download."""
+
+    def __init__(self, paths_remote, path_local, download_engine):
+        """Constructor."""
+        self.paths_remote = paths_remote
+        self.path_local = path_local
+        self.download_engine = download_engine
+        self.base_url = "https://nlmpubs.nlm.nih.gov/projects/mesh"
+
+    def get_url(self, path_remote):
+        """Return url."""
+        return self.base_url + "/" + path_remote
+
+    def download(self, cache=False):
+        """Try to fetch file by checking potential locations."""
+        last_exception = None
+
+        if cache and self.path_local.exists():
+            return
+
+        for path_remote in self.paths_remote:
+            try:
+                # Write to disk
+                self.download_engine.download_file(
+                    self.get_url(path_remote),
+                    self.path_local,
+                )
+                return
+            except Exception as e:
+                print(f"Request failed: {e}")
+                last_exception = e
+
+        if last_exception:
+            raise last_exception
 
 
 class MeSHDownloader:
     """Download MeSH files."""
 
-    terms_filename_tmpl = "d{year}.bin"
-    qualifiers_filename_tmpl = "q{year}.bin"
-    new_filename_tmpl = "meshnew{year}.txt"
-    replace_filename_tmpl = "replace{year}.txt"
-
-    def __init__(self, directory, year, cache=False):
+    def __init__(self, directory, year, cache=False, download_engine=None):
         """Constructor."""
         self.directory = directory
         self.year = str(year)
         self.cache = cache
-
-        self.base_url = "https://nlmpubs.nlm.nih.gov/projects/mesh"
-
-    def file_urls(self):
-        """List of files to download."""
-        current_year = str(date.today().year)
-        url_parent_segment = "MESH_FILES" if self.year == current_year else self.year  # noqa
-        base_url = self.base_url + "/" + url_parent_segment
-
-        urls = []
-
-        # asciimesh files
-        base_url_asciimesh = base_url + "/" + "asciimesh"
-        urls += [
-            base_url_asciimesh + "/" + fn_tmpl.format(year=self.year)
-            for fn_tmpl in [
-                self.terms_filename_tmpl,
-                self.qualifiers_filename_tmpl
-            ]
+        self.download_engine = download_engine
+        self.file_for_terms = MeSHFileToDownload(
+            paths_remote=[
+                f"{self.year}/asciimesh/d{self.year}.bin",
+                f"MESH_FILES/asciimesh/d{self.year}.bin",
+                f"MESH_FILES/mesh_browser/d{self.year}.bin",
+            ],
+            path_local=self.directory / f"d{self.year}.bin",
+            download_engine=self.download_engine,
+        )
+        self.file_for_qualifiers = MeSHFileToDownload(
+            paths_remote=[
+                f"{self.year}/asciimesh/q{self.year}.bin",
+                f"MESH_FILES/asciimesh/q{self.year}.bin",
+                f"MESH_FILES/mesh_browser/q{self.year}.bin",
+            ],
+            path_local=self.directory / f"q{self.year}.bin",
+            download_engine=self.download_engine,
+        )
+        self.file_for_new = MeSHFileToDownload(
+            paths_remote=[
+                f"{self.year}/newterms/meshnew{self.year}.txt",
+                f"MESH_FILES/newterms/meshnew{self.year}.txt",
+            ],
+            path_local=self.directory / f"meshnew{self.year}.txt",
+            download_engine=self.download_engine,
+        )
+        self.file_for_replace = MeSHFileToDownload(
+            paths_remote=[
+                f"{self.year}/newterms/replace{self.year}.txt",
+                f"MESH_FILES/newterms/replace{self.year}.txt",
+            ],
+            path_local=self.directory / f"replace{self.year}.txt",
+            download_engine=self.download_engine,
+        )
+        self.files_to_download = [
+            self.file_for_terms,
+            self.file_for_qualifiers,
+            self.file_for_new,
+            self.file_for_replace,
         ]
-
-        # newterms files
-        base_url_newterms = base_url + "/" + "newterms"
-        urls += [
-            base_url_newterms + "/" + fn_tmpl.format(year=self.year)
-            for fn_tmpl in [
-                self.new_filename_tmpl,
-                self.replace_filename_tmpl
-            ]
-        ]
-
-        return urls
 
     def download(self):
         """Download MeSH files of interest."""
-        # files to download
-        urls = self.file_urls()
-
-        for url in urls:
-            dest_path = self.directory / url.rsplit("/", 1)[-1]
-            if self.cache and dest_path.exists():
-                continue
-            download_file(url, dest_path)
+        for file_to_download in self.files_to_download:
+            file_to_download.download(cache=self.cache)
 
     @property
     def terms_filepath(self):
         """Downloaded terms filepath."""
-        return self.directory / self.terms_filename_tmpl.format(year=self.year)
+        return self.file_for_terms.path_local
 
     @property
     def qualifiers_filepath(self):
         """Downloaded qualifiers filepath."""
-        return self.directory / self.qualifiers_filename_tmpl.format(year=self.year)  # noqa
+        return self.file_for_qualifiers.path_local
 
     @property
     def new_filepath(self):
         """Downloaded meshnew filepath."""
-        return self.directory / self.new_filename_tmpl.format(year=self.year)
+        return self.file_for_new.path_local
 
     @property
     def replace_filepath(self):
         """Downloaded replace filepath."""
-        return self.directory / self.replace_filename_tmpl.format(year=self.year)  # noqa
+        return self.file_for_replace.path_local

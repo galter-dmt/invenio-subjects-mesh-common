@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2024 Northwestern University.
+# Copyright (C) 2021-2026 Northwestern University.
 #
 # invenio-subjects-mesh-common is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,49 +8,54 @@
 
 """Test MeSH-related download functionality."""
 
-from collections import namedtuple
-from contextlib import contextmanager
+import shutil
 from pathlib import Path
-from unittest import mock
 
 from invenio_subjects_mesh_common.downloader import MeSHDownloader
 
 # Helpers
 
+class FakeRequestsDownloader:
+    """Fake downloader."""
 
-@contextmanager
-def fake_request_context(url, stream):
-    """A faked requests.get context result."""
-    filename = url.rsplit("/", 1)[-1]
-    fp = Path(__file__).parent / f"data/fake_{filename}"
+    def __init__(self):
+        """Constructor."""
 
-    FakeRequestContext = namedtuple("FakeRequestContext", ["raw"])
+    def download_file(self, url, dest_path):
+        # It pretends that the d2023.bin is not in
+        # f"{self.year}/asciimesh/d{self.year}.bin" or
+        # f"MESH_FILES/asciimesh/d{self.year}.bin"
+        urls_invalid = [
+            "https://nlmpubs.nlm.nih.gov/projects/mesh/2023/asciimesh/d2023.bin",  # noqa
+            "https://nlmpubs.nlm.nih.gov/projects/mesh/MESH_FILES/asciimesh/d2023.bin",  # noqa
+        ]
+        if url in urls_invalid:
+            raise Exception(f"{url} doesn't exist.")
 
-    with open(fp, "rb") as f:
-        yield FakeRequestContext(raw=f)
+        filename = url.rsplit("/", 1)[-1]
+        fp = Path(__file__).parent / f"data/fake_{filename}"
+        shutil.copyfile(fp, dest_path)
+
+        return dest_path
 
 
 # Tests
 
 
-@mock.patch('galter_subjects_utils.downloader.requests.get')
-def test_downloader(patched_get, tmp_path):
+def test_downloader(tmp_path):
+    # Tests high level interfaces i.e., we have the right names, interfaces and
+    # final files written to disk.
+    # Full network and internals test done manually.
     downloads_dir = tmp_path / "downloads"
     downloads_dir.mkdir()
-    # patch requests.get to return files
-    patched_get.side_effect = fake_request_context
 
-    # Testing the current_year variant seemed like it would lead to a test
-    # mirror, so it has been tested manually instead. This really just tests
-    # that we have the right name, interfaces and final files written to disk
-    # in right location.
     downloader = MeSHDownloader(
         year="2023",
-        directory=downloads_dir
+        directory=downloads_dir,
+        download_engine=FakeRequestsDownloader(),
     )
     downloader.download()
 
-    patched_get.assert_called()
     assert (downloads_dir / "d2023.bin").exists()
     assert (downloads_dir / "q2023.bin").exists()
     assert (downloads_dir / "meshnew2023.txt").exists()
