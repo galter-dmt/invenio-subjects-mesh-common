@@ -9,7 +9,6 @@
 """MeSH Command line tool."""
 
 from datetime import date
-from functools import wraps
 from pathlib import Path
 
 import click
@@ -22,7 +21,7 @@ from galter_subjects_utils.writer import write_csv
 
 from .adapter import generate_replacements
 from .converter import MeSHRDMConverter
-from .downloader import MeSHDownloader
+from .downloader import MeSHDownloader, RequestsDownloader
 from .reader import MeSHReader, MeSHReplaceReader, topic_filter
 from .scheme import MeSHScheme
 
@@ -68,32 +67,24 @@ def to_mesh_converter_kwargs(parameters, downloader):
     return result
 
 
-def mesh_download_options(f):
-    """Encapsulate common MeSH download options."""
+# Options
 
-    @click.option("--year", "-y", default=defaults["year"])
-    @click.option(
-        "--filter", "-f",
-        type=click.Choice(["topic", "topic-qualifier"]),
-        default=defaults["filter"],
-    )
-    @click.option(
-        "--downloads-dir", "-d",
-        type=click.Path(path_type=Path),
-        default=defaults["downloads-dir"]
-    )
-    @click.option(
-        "--no-cache",
-        default=False,
-        help="Re-download even if already downloaded.",
-        is_flag=True
-    )
-    @wraps(f)
-    def _wrapped(*args, **kwargs):
-        """Wrap f with common download options."""
-        return f(*args, **kwargs)
 
-    return _wrapped
+option_for_downloads_dir = click.option(
+    "--downloads-dir", "-d",
+    type=click.Path(path_type=Path),
+    default=defaults["downloads-dir"]
+)
+option_for_year = click.option("--year", "-y", default=defaults["year"])
+option_for_filter = click.option(
+    "--filter",
+    "-f",
+    type=click.Choice(["topic", "topic-qualifier"]),
+    default=defaults["filter"],
+)
+
+
+# Commands
 
 
 @click.group()
@@ -102,30 +93,44 @@ def mesh():
 
 
 @mesh.command("download")
-@mesh_download_options
+@option_for_downloads_dir
+@click.option(
+    "--no-cache",
+    default=False,
+    help="Re-download even if already downloaded.",
+    is_flag=True
+)
+@option_for_year
 def mesh_download(**parameters):
     """Download MeSH files."""
     downloader_kwargs = to_mesh_downloader_kwargs(parameters)
-    downloader = MeSHDownloader(**downloader_kwargs)
+    downloader = MeSHDownloader(
+        **downloader_kwargs,
+        download_engine=RequestsDownloader(),
+    )
     downloader.download()
 
     print(f"Raw MeSH files written in {parameters['downloads_dir']}/")
 
 
 @mesh.command("file")
-@mesh_download_options
+@option_for_downloads_dir
+@option_for_filter
 @click.option(
-    "--output-file", "-o",
+    "--output-file",
+    "-o",
     type=click.Path(path_type=Path),
     default=defaults["output-file"] / "subjects_mesh.jsonl",
 )
+@option_for_year
 def mesh_file(**parameters):
     """Generate new MeSH subjects file."""
-    # Download
-    downloader_kwargs = to_mesh_downloader_kwargs(parameters)
-    downloader = MeSHDownloader(**downloader_kwargs)
-    downloader.download()
-
+    # 'Empty' downloader just to pass it to converter, so that it can retrieve
+    # relevant filepaths.
+    downloader = MeSHDownloader(
+        directory=parameters["downloads_dir"],
+        year=parameters["year"],
+    )
     # Convert
     converter_kwargs = to_mesh_converter_kwargs(parameters, downloader)
     converter = MeSHRDMConverter(**converter_kwargs)
@@ -144,16 +149,9 @@ def mesh_file(**parameters):
 
 
 @mesh.command("deltas")
-@click.option(
-    "--downloads-dir", "-d",
-    type=click.Path(path_type=Path),
-    default=defaults["downloads-dir"])
-@click.option("--year", "-y", type=int, default=defaults["year"])
-@click.option(
-    "--filter", "-f",
-    type=click.Choice(["topic", "topic-qualifier"]),
-    default=defaults["filter"],
-)
+@option_for_downloads_dir
+@option_for_year
+@option_for_filter
 @click.option(
     "--output-file", "-o",
     type=click.Path(path_type=Path),

@@ -15,6 +15,7 @@ from invenio_subjects_mesh_common.downloader import MeSHDownloader
 
 # Helpers
 
+
 class FakeRequestsDownloader:
     """Fake downloader."""
 
