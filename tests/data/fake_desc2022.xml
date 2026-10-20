@@ -1,0 +1,975 @@
+<?xml version="1.0"?>
+<!DOCTYPE DescriptorRecordSet SYSTEM "https://www.nlm.nih.gov/databases/dtd/nlmdescriptorrecordset_20260101.dtd">
+<DescriptorRecordSet LanguageCode = "eng">
+
+<DescriptorRecord DescriptorClass = "2">
+  <DescriptorUI>D000068036</DescriptorUI>
+  <DescriptorName>
+   <Strong>Graphic Novel</Strong>
+  </DescriptorName>
+  <LastUpdated>
+   <Year>2023</Year>
+   <Month>05</Month>
+   <Day>31</Day>
+  </LastUpdated>
+  <DateIntroduced>
+   <Year>2016</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateIntroduced>
+  <Annotation>This heading is used as a Publication Type. Graphic novels as a subject are indexed under the main heading GRAPHIC NOVELS AS TOPIC.  INDEXER: Do not use
+  </Annotation>
+  <HistoryNote>2016; use CARTOONS 2014-2015
+  </HistoryNote>
+  <PreviousIndexingList>
+   <PreviousIndexing>Cartoons (2014-2015)</PreviousIndexing>
+  </PreviousIndexingList>
+  <TreeNumberList>
+   <TreeNumber>V02.700.225.500</TreeNumber>
+  </TreeNumberList>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M000601534</ConceptUI>
+    <ConceptName>
+     <String>Graphic Novel</String>
+    </ConceptName>
+    <ScopeNote>Book-length narratives told using a combination of words and sequential art, often presented in comic book style. from (Fletcher-Spear et al., ALA Review, Winter 2005)
+    </ScopeNote>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="Y">
+      <TermUI>T000962894</TermUI>
+      <String>Graphic Novel</String>
+      <DateCreated>
+       <Year>2019</Year>
+       <Month>07</Month>
+       <Day>02</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2020)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873721</TermUI>
+      <String>Graphic Novels</String>
+      <DateCreated>
+       <Year>2015</Year>
+       <Month>01</Month>
+       <Day>16</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2016)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+ </DescriptorRecord>
+
+<DescriptorRecord DescriptorClass = "1">
+  <DescriptorUI>D000068098</DescriptorUI>
+  <DescriptorName>
+   <String>Seed Bank</String>
+  </DescriptorName>
+  <LastUpdated>
+   <Year>2018</Year>
+   <Month>06</Month>
+   <Day>29</Day>
+  </LastUpdated>
+  <DateIntroduced>
+   <Year>2016</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateIntroduced>
+  <AllowableQualifiersList>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000145</QualifierUI>
+      <QualifierName>
+      <String>classification</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>CL</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000191</QualifierUI>
+      <QualifierName>
+      <String>economics</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>EC</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000266</QualifierUI>
+      <QualifierName>
+      <String>history</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>HI</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000331</QualifierUI>
+      <QualifierName>
+      <String>legislation &amp; jurisprudence</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>LJ</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000458</QualifierUI>
+      <QualifierName>
+      <String>organization &amp; administration</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>OG</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000592</QualifierUI>
+      <QualifierName>
+      <String>standards</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>ST</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000600</QualifierUI>
+      <QualifierName>
+      <String>supply &amp; distribution</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>SD</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000639</QualifierUI>
+      <QualifierName>
+      <String>trends</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>TD</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000706</QualifierUI>
+      <QualifierName>
+      <String>statistics &amp; numerical data</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>SN</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000941</QualifierUI>
+      <QualifierName>
+      <String>ethics</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>ES</Abbreviation>
+   </AllowableQualifier>
+  </AllowableQualifiersList>
+  <HistoryNote>2016
+  </HistoryNote>
+  <PublicMeSHNote>2016
+  </PublicMeSHNote>
+  <PreviousIndexingList>
+   <PreviousIndexing>Seeds (2000-2015)</PreviousIndexing>
+  </PreviousIndexingList>
+  <TreeNumberList>
+   <TreeNumber>N02.278.065.650</TreeNumber>
+  </TreeNumberList>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M000601663</ConceptUI>
+    <ConceptName>
+     <String>Seed Bank</String>
+    </ConceptName>
+    <ScopeNote>A repository of seeds maintained under optimal conditions that ensure long term storage, intended for use as a source of replenishment of seed stock or plant genetic material.
+    </ScopeNote>
+    <ConceptRelationList>
+     <ConceptRelation RelationName="BRD">
+     <Concept1UI>M000601663</Concept1UI>
+     <Concept2UI>M000601664</Concept2UI>
+     </ConceptRelation>
+    </ConceptRelationList>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="Y">
+      <TermUI>T000873974</TermUI>
+      <String>Seed Bank</String>
+      <DateCreated>
+       <Year>2015</Year>
+       <Month>01</Month>
+       <Day>21</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2016)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873974</TermUI>
+      <String>Bank, Seed</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873974</TermUI>
+      <String>Banks, Seed</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873974</TermUI>
+      <String>Seed Banks</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873981</TermUI>
+      <String>Seedbank</String>
+      <DateCreated>
+       <Year>2015</Year>
+       <Month>01</Month>
+       <Day>21</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2016)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873981</TermUI>
+      <String>Seedbanks</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873982</TermUI>
+      <String>Seeds Bank</String>
+      <DateCreated>
+       <Year>2015</Year>
+       <Month>01</Month>
+       <Day>21</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2016)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873982</TermUI>
+      <String>Bank, Seeds</String>
+     </Term>
+    </TermList>
+   </Concept>
+   <Concept PreferredConceptYN="N">
+    <ConceptUI>M000601664</ConceptUI>
+    <ConceptName>
+     <String>Germplasm Bank</String>
+    </ConceptName>
+    <ConceptRelationList>
+     <ConceptRelation RelationName="BRD">
+     <Concept1UI>M000601663</Concept1UI>
+     <Concept2UI>M000601664</Concept2UI>
+     </ConceptRelation>
+    </ConceptRelationList>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873980</TermUI>
+      <String>Germplasm Bank</String>
+      <DateCreated>
+       <Year>2015</Year>
+       <Month>01</Month>
+       <Day>21</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2016)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873980</TermUI>
+      <String>Bank, Germplasm</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873980</TermUI>
+      <String>Banks, Germplasm</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000873980</TermUI>
+      <String>Germplasm Banks</String>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+ </DescriptorRecord>
+
+<DescriptorRecord DescriptorClass = "3">
+  <DescriptorUI>D005260</DescriptorUI>
+  <DescriptorName>
+   <String>Female</String>
+  </DescriptorName>
+  <LastUpdated>
+   <Year>2026</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </LastUpdated>
+  <DateIntroduced>
+   <Year>1966</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateIntroduced>
+  <Annotation>check tag only for female organs, diseases, physiologic processes, genetics, etc.; do not confuse with WOMEN as a social, cultural, political, economic force; INDEXER: use only for humans and multicellular animals
+  </Annotation>
+  <HistoryNote>1966; for FEMALES use WOMEN 1978-2005
+  </HistoryNote>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M0008308</ConceptUI>
+    <ConceptName>
+     <String>Female</String>
+    </ConceptName>
+    <ScopeNote>Organisms with the biological SEX that produces OVA, or egg cells, for sexual reproduction.
+    </ScopeNote>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="Y">
+      <TermUI>T016102</TermUI>
+      <String>Female</String>
+      <DateCreated>
+       <Year>1999</Year>
+       <Month>01</Month>
+       <Day>01</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (1966)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T043611</TermUI>
+      <String>Females</String>
+      <DateCreated>
+       <Year>1977</Year>
+       <Month>03</Month>
+       <Day>17</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>BIOETHICS (1974)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+</DescriptorRecord>
+
+<DescriptorRecord DescriptorClass = "1">
+  <DescriptorUI>D000004</DescriptorUI>
+  <DescriptorName>
+   <String>Abbreviations as Topic</String>
+  </DescriptorName>
+  <LastUpdated>
+   <Year>2017</Year>
+   <Month>06</Month>
+   <Day>30</Day>
+  </LastUpdated>
+  <DateIntroduced>
+   <Year>1960</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateIntroduced>
+  <Annotation>includes acronyms; do not confuse with Publication Type ABBREVIATIONS
+  </Annotation>
+  <HistoryNote>2008(1963)
+  </HistoryNote>
+  <PublicMeSHNote>2008; see ABBREVIATIONS 1963-2007
+  </PublicMeSHNote>
+  <TreeNumberList>
+   <TreeNumber>L01.559.598.400.556.131</TreeNumber>
+  </TreeNumberList>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M0000004</ConceptUI>
+    <ConceptName>
+     <String>Abbreviations as Topic</String>
+    </ConceptName>
+    <ScopeNote>Works about shortened forms of written words or phrases used for brevity.
+    </ScopeNote>
+    <ConceptRelationList>
+     <ConceptRelation RelationName="NRW">
+     <Concept1UI>M0000004</Concept1UI>
+     <Concept2UI>M0511063</Concept2UI>
+     </ConceptRelation>
+    </ConceptRelationList>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="Y">
+      <TermUI>T698652</TermUI>
+      <String>Abbreviations as Topic</String>
+      <DateCreated>
+       <Year>2007</Year>
+       <Month>05</Month>
+       <Day>31</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2008)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+    </TermList>
+   </Concept>
+   <Concept PreferredConceptYN="N">
+    <ConceptUI>M0511063</ConceptUI>
+    <ConceptName>
+     <String>Acronyms as Topic</String>
+    </ConceptName>
+    <ConceptRelationList>
+     <ConceptRelation RelationName="NRW">
+     <Concept1UI>M0000004</Concept1UI>
+     <Concept2UI>M0511063</Concept2UI>
+     </ConceptRelation>
+    </ConceptRelationList>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T701041</TermUI>
+      <String>Acronyms as Topic</String>
+      <DateCreated>
+       <Year>2007</Year>
+       <Month>06</Month>
+       <Day>29</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2008)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+</DescriptorRecord>
+
+<DescriptorRecord DescriptorClass = "1">
+  <DescriptorUI>D000005</DescriptorUI>
+  <DescriptorName>
+   <String>Abdomen</String>
+  </DescriptorName>
+  <LastUpdated>
+   <Year>2016</Year>
+   <Month>08</Month>
+   <Day>09</Day>
+  </LastUpdated>
+  <DateIntroduced>
+   <Year>1966</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateIntroduced>
+  <AllowableQualifiersList>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000002</QualifierUI>
+      <QualifierName>
+      <String>abnormalities</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>AB</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000033</QualifierUI>
+      <QualifierName>
+      <String>anatomy &amp; histology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>AH</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000098</QualifierUI>
+      <QualifierName>
+      <String>blood supply</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>BS</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000196</QualifierUI>
+      <QualifierName>
+      <String>embryology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>EM</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000254</QualifierUI>
+      <QualifierName>
+      <String>growth &amp; development</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>GD</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000294</QualifierUI>
+      <QualifierName>
+      <String>innervation</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>IR</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000382</QualifierUI>
+      <QualifierName>
+      <String>microbiology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>MI</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000469</QualifierUI>
+      <QualifierName>
+      <String>parasitology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>PS</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000473</QualifierUI>
+      <QualifierName>
+      <String>pathology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>PA</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000502</QualifierUI>
+      <QualifierName>
+      <String>physiology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>PH</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000503</QualifierUI>
+      <QualifierName>
+      <String>physiopathology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>PP</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000528</QualifierUI>
+      <QualifierName>
+      <String>radiation effects</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>RE</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000601</QualifierUI>
+      <QualifierName>
+      <String>surgery</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>SU</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000821</QualifierUI>
+      <QualifierName>
+      <String>virology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>VI</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000000981</QualifierUI>
+      <QualifierName>
+      <String>diagnostic imaging</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>DG</Abbreviation>
+   </AllowableQualifier>
+  </AllowableQualifiersList>
+  <Annotation>general or unspecified; prefer specifics; ABDOMINAL MUSCLES and specifics are available; abrupt disease requiring emergency surgery equals ABDOMEN, ACUTE
+  </Annotation>
+  <EntryCombinationList>
+   <EntryCombination>
+    <ECIN>
+     <DescriptorReferredTo>
+      <DescriptorUI>D000005</DescriptorUI>
+      <DescriptorName>
+       <String>Abdomen</String>
+      </DescriptorName>
+     </DescriptorReferredTo>
+     <QualifierReferredTo>
+      <QualifierUI>Q000293</QualifierUI>
+      <QualifierName>
+       <String>injuries</String>
+      </QualifierName>
+     </QualifierReferredTo>
+    </ECIN>
+    <ECOUT>
+     <DescriptorReferredTo>
+      <DescriptorUI>D000007</DescriptorUI>
+      <DescriptorName>
+       <String>Abdominal Injuries</String>
+      </DescriptorName>
+     </DescriptorReferredTo>
+    </ECOUT>
+   </EntryCombination>
+  </EntryCombinationList>
+  <TreeNumberList>
+   <TreeNumber>A01.923.047</TreeNumber>
+  </TreeNumberList>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M0000005</ConceptUI>
+    <ConceptName>
+     <String>Abdomen</String>
+    </ConceptName>
+    <ScopeNote>That portion of the body that lies between the THORAX and the PELVIS.
+    </ScopeNote>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="Y">
+      <TermUI>T000012</TermUI>
+      <String>Abdomen</String>
+      <DateCreated>
+       <Year>1999</Year>
+       <Month>01</Month>
+       <Day>01</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (1966)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T000012</TermUI>
+      <String>Abdomens</String>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+</DescriptorRecord>
+
+<DescriptorRecord DescriptorClass = "4">
+  <DescriptorUI>D005367</DescriptorUI>
+  <DescriptorName>
+   <String>Fiji</String>
+  </DescriptorName>
+  <LastUpdated>
+   <Year>2026</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </LastUpdated>
+  <DateIntroduced>
+   <Year>1975</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateIntroduced>
+  <AllowableQualifiersList>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000208</QualifierUI>
+      <QualifierName>
+      <String>ethnology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>EH</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000453</QualifierUI>
+      <QualifierName>
+      <String>epidemiology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>EP</Abbreviation>
+   </AllowableQualifier>
+  </AllowableQualifiersList>
+  <Annotation>an island group in Melanesia
+  </Annotation>
+  <HistoryNote>75
+  </HistoryNote>
+  <TreeNumberList>
+   <TreeNumber>Z01.639.760.590.373</TreeNumber>
+   <TreeNumber>Z01.678.101.590.373</TreeNumber>
+  </TreeNumberList>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M0008466</ConceptUI>
+    <ConceptName>
+     <String>Fiji</String>
+    </ConceptName>
+    <ScopeNote>A republic consisting of an island group in Melanesia, in the southwest Pacific Ocean. Its capital is Suva. It was discovered by Abel Tasman in 1643 and was visited by Captain Cook in 1774. It was used by escaped convicts from Australia as early as 1804. It was annexed by Great Britain in 1874 but achieved independence in 1970. The name Fiji is of uncertain origin. In its present form it may represent that of Viti, the main island in the group. (From Webster's New Geographical Dictionary, 1988, p396 &amp; Room, Brewer's Dictionary of Names, 1992, p186)
+    </ScopeNote>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NAM"  RecordPreferredTermYN="Y">
+      <TermUI>T016370</TermUI>
+      <String>Fiji</String>
+      <DateCreated>
+       <Year>1999</Year>
+       <Month>01</Month>
+       <Day>01</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>POPLINE (1978)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+</DescriptorRecord>
+
+<DescriptorRecord DescriptorClass = "1">
+  <DescriptorUI>D000086562</DescriptorUI>
+  <DescriptorName>
+   <String>American Indians or Alaska Natives</String>
+  </DescriptorName>
+  <DateCreated>
+   <Year>2020</Year>
+   <Month>07</Month>
+   <Day>07</Day>
+  </DateCreated>
+  <DateRevised>
+   <Year>2021</Year>
+   <Month>06</Month>
+   <Day>30</Day>
+  </DateRevised>
+  <DateEstablished>
+   <Year>2021</Year>
+   <Month>01</Month>
+   <Day>01</Day>
+  </DateEstablished>
+  <AllowableQualifiersList>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000145</QualifierUI>
+      <QualifierName>
+      <String>classification</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>CL</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000193</QualifierUI>
+      <QualifierName>
+      <String>education</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>ED</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000266</QualifierUI>
+      <QualifierName>
+      <String>history</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>HI</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000331</QualifierUI>
+      <QualifierName>
+      <String>legislation &amp; jurisprudence</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>LJ</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000523</QualifierUI>
+      <QualifierName>
+      <String>psychology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>PX</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000706</QualifierUI>
+      <QualifierName>
+      <String>statistics &amp; numerical data</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>SN</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000208</QualifierUI>
+      <QualifierName>
+      <String>ethnology</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>EH</Abbreviation>
+   </AllowableQualifier>
+   <AllowableQualifier>
+    <QualifierReferredTo>
+     <QualifierUI>Q000235</QualifierUI>
+      <QualifierName>
+      <String>genetics</String>
+      </QualifierName>
+    </QualifierReferredTo>
+    <Abbreviation>GE</Abbreviation>
+   </AllowableQualifier>
+  </AllowableQualifiersList>
+  <Annotation>specify geographic location if possible
+  </Annotation>
+  <HistoryNote>Use INDIANS, NORTH AMERICAN 1990-2021
+  </HistoryNote>
+  <PublicMeSHNote>See Indians, North American 1990-20212021
+  </PublicMeSHNote>
+  <PreviousIndexingList>
+   <PreviousIndexing>Indians, North American (1989-2020)</PreviousIndexing>
+  </PreviousIndexingList>
+  <TreeNumberList>
+   <TreeNumber>M01.686.508.150.600.500</TreeNumber>
+  </TreeNumberList>
+  <ConceptList>
+   <Concept PreferredConceptYN="Y">
+    <ConceptUI>M000732705</ConceptUI>
+    <ConceptName>
+     <String>American Indians or Alaska Natives</String>
+    </ConceptName>
+    <ScopeNote>A person having origins in any of the original peoples of North and South America (including Central America), and who maintains tribal affiliation or community attachment.
+    </ScopeNote>
+    <ConceptRelationList>
+     <ConceptRelation RelationName="NRW">
+     <Concept1UI>M000732705</Concept1UI>
+     <Concept2UI>M000733046</Concept2UI>
+     </ConceptRelation>
+    </ConceptRelationList>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="Y">
+      <TermUI>T001106288</TermUI>
+      <String>American Indians or Alaska Natives</String>
+      <DateCreated>
+       <Year>2021</Year>
+       <Month>05</Month>
+       <Day>12</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2022)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080025</TermUI>
+      <String>American Indians</String>
+      <DateCreated>
+       <Year>2020</Year>
+       <Month>05</Month>
+       <Day>11</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2021)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080028</TermUI>
+      <String>Indians, American</String>
+      <DateCreated>
+       <Year>2020</Year>
+       <Month>05</Month>
+       <Day>11</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2021)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080028</TermUI>
+      <String>American Indian</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080666</TermUI>
+      <String>American Natives</String>
+      <DateCreated>
+       <Year>2020</Year>
+       <Month>05</Month>
+       <Day>15</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2021)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080666</TermUI>
+      <String>American Native</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080666</TermUI>
+      <String>Native, American</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080666</TermUI>
+      <String>Natives, American</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080026</TermUI>
+      <String>Native Americans</String>
+      <DateCreated>
+       <Year>2020</Year>
+       <Month>05</Month>
+       <Day>11</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2021)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080026</TermUI>
+      <String>American, Native</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080026</TermUI>
+      <String>Native American</String>
+     </Term>
+    </TermList>
+   </Concept>
+   <Concept PreferredConceptYN="N">
+    <ConceptUI>M000733046</ConceptUI>
+    <ConceptName>
+     <String>Native Americans, Federally-recognized</String>
+    </ConceptName>
+    <ConceptRelationList>
+     <ConceptRelation RelationName="NRW">
+     <Concept1UI>M000732705</Concept1UI>
+     <Concept2UI>M000733046</Concept2UI>
+     </ConceptRelation>
+    </ConceptRelationList>
+    <TermList>
+     <Term  ConceptPreferredTermYN="Y"  IsPermutedTermYN="N"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080657</TermUI>
+      <String>Native Americans, Federally-recognized</String>
+      <DateCreated>
+       <Year>2020</Year>
+       <Month>05</Month>
+       <Day>15</Day>
+      </DateCreated>
+      <ThesaurusIDlist>
+       <ThesaurusID>NLM (2021)</ThesaurusID>
+      </ThesaurusIDlist>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080657</TermUI>
+      <String>American, Federally-recognized Native</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080657</TermUI>
+      <String>Federally-recognized Native American</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080657</TermUI>
+      <String>Federally-recognized Native Americans</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080657</TermUI>
+      <String>Native American, Federally-recognized</String>
+     </Term>
+     <Term  ConceptPreferredTermYN="N"  IsPermutedTermYN="Y"  LexicalTag="NON"  RecordPreferredTermYN="N">
+      <TermUI>T001080657</TermUI>
+      <String>Native Americans, Federally recognized</String>
+     </Term>
+    </TermList>
+   </Concept>
+  </ConceptList>
+</DescriptorRecord>
+</DescriptorRecordSet>

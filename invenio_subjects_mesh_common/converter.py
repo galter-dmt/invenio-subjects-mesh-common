@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2024 Northwestern University.
+# Copyright (C) 2024-2026 Northwestern University.
 #
 # invenio-subjects-mesh-common is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -12,47 +12,35 @@ from .scheme import MeSHScheme
 
 
 class MeSHRDMConverter:
-    """Convert MeSH term into RDM subject dict."""
+    """Convert internal MeSH entries into RDM subject dicts."""
 
-    def __init__(self, topics, qualifiers_mapping=None):
+    def __init__(self, internal_entries):
         """Constructor.
 
-        :param topics: MeSH Topics iterable
-        :type topics: iterable[dict]
-        :param qualifiers: MeSH qualifiers iterable, defaults to None
-        :type qualifiers: iterable[dict], optional
+        :param internal_entries: iterable[dict] - MeSH internal entries
         """
-        self.topics = topics
-        self.qualifiers_mapping = qualifiers_mapping
+        self.internal_entries = internal_entries
+        # self.qualifiers_mapping = qualifiers_mapping
         self.mesh = MeSHScheme()
 
-    def __iter__(self):
-        """Iterate over converted entries.
+    def iter_rdm_subjects(self, qualified=False):
+        """Iterator over converted entries.
 
-        DEPRECATED.
+        :param qualified: bool - produce qualified entries as well
         """
-        yield from self.convert()
-
-    def convert(self):
-        """Iterator over converted entries."""
-        for topic in self.topics:
+        for entry in self.internal_entries:
             yield {
-                "id": self.mesh.generate_id(topic['UI']),
+                "id": self.mesh.generate_id(entry["id"]),
                 "scheme": self.mesh.name,
-                "subject": topic['MH']
+                "subject": entry["main_heading"],
             }
 
-            if not self.qualifiers_mapping:
+            if not qualified:
                 continue
 
-            for qid in topic.get("AQ", []):
-                qualifier = self.qualifiers_mapping.get(qid)
-
-                if not qualifier:
-                    continue
-
+            for qualifier in entry.get("allowed_qualifiers", []):
                 yield {
-                    "id": self.mesh.generate_id(topic['UI'] + qualifier['UI']),
+                    "id": self.mesh.generate_id(entry["id"] + qualifier["id"]),
                     "scheme": self.mesh.name,
-                    "subject": topic['MH'] + "/" + qualifier['SH']
+                    "subject": entry["main_heading"] + "/" + qualifier["main_heading"]  # noqa
                 }

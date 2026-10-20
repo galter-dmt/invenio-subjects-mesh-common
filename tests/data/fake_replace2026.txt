@@ -1,0 +1,11 @@
+MH OLD = Somatomedins
+
+MH OLD = Carcinoma, Basal Cell [N]
+MH NEW = Basal Cell Carcinoma
+
+MH OLD = Pain, Procedural []
+MH NEW = Procedural Pain
+
+Total replaced     =      2
+Total deleted      =      0
+Total without YE   =      0

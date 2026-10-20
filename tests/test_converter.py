@@ -12,27 +12,32 @@ from invenio_subjects_mesh_common.converter import MeSHRDMConverter
 
 
 def test_converter():
-    topics = [{
-        'MH': 'Seed Bank',
-        'DC': '1',
-        'AQ': ['CL', 'EC'],
-        'UI': 'D000068098'
-    }]
-    qualifiers_mapping = {
-        "CL": {
-            "QA": "CL",
-            "SH": "classification",
-            "UI": "Q000145"
-        },
-        "EC": {
-            "QA": "EC",
-            "SH": "economics",
-            "UI": "Q000191"
+    internal_entries = [
+        {
+            "main_heading": "Seed Bank",
+            "descriptor_class": "1",
+            "allowed_qualifiers": [
+                {"id": "Q000145", "main_heading": "classification"},
+                {"id": "Q000191", "main_heading": "economics"},
+            ],
+            "id": "D000068098",
         }
-    }
+    ]
+    # qualifiers_mapping = {
+    #     "CL": {
+    #         "QA": "CL",
+    #         "SH": "classification",
+    #         "UI": "Q000145"
+    #     },
+    #     "EC": {
+    #         "QA": "EC",
+    #         "SH": "economics",
+    #         "UI": "Q000191"
+    #     }
+    # }
 
-    converter = MeSHRDMConverter(topics, qualifiers_mapping)
-    objects = [o for o in converter]
+    converter = MeSHRDMConverter(internal_entries)
+    subjects = [s for s in converter.iter_rdm_subjects(qualified=True)]
 
     expected = [
         {
@@ -51,4 +56,4 @@ def test_converter():
             "subject": "Seed Bank/economics"
         },
     ]
-    assert expected == objects
+    assert expected == subjects

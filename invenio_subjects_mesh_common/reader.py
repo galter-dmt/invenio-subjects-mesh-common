@@ -10,12 +10,19 @@
 
 import re
 
+from lxml import etree
+
 # Utilities
 
 
 def topic_filter(record):
     """Filters for topical terms."""
     return record.get("DC") == "1"
+
+
+def topic_filter_xml(record):
+    """Filters for topical terms for xml."""
+    return record["descriptor_class"] == "1"
 
 
 # Readers
@@ -155,3 +162,58 @@ class MeSHReplaceReader:
 
             if entry:
                 yield entry
+
+
+class MeSHXMLReader:
+    """MeSH XML Reader."""
+
+    def __init__(self, filepath, filter=lambda r: True):
+        """Constructor."""
+        self._filepath = filepath
+        self._filter = filter
+
+    def _raw_to_internal_entry(self, raw):
+        """Convert raw entry to internal representation entry.
+
+        :param raw: LXML etree.Element - descriptor record raw XML object
+        """
+        entry = {}
+        entry["id"] = raw.findtext("DescriptorUI")
+        entry["descriptor_class"] = raw.get("DescriptorClass")
+        # returns None if none found
+        entry["main_heading"] = raw.findtext("DescriptorName/String")
+        entry["allowed_qualifiers"] = [
+            {
+                "id": aq.findtext("QualifierReferredTo/QualifierUI"),
+                "main_heading": aq.findtext("QualifierReferredTo/QualifierName/String"),  # noqa
+            }
+            for aq in raw.iterfind("AllowableQualifiersList/AllowableQualifier")  # noqa
+        ]
+
+        return entry
+
+    def iter_internal_entries(self):
+        """Iteratively reads entries from file."""
+        with open(self._filepath, "rb") as f:
+            records_parsed = etree.iterparse(
+                f,
+                events=("end",),
+                tag="DescriptorRecord",
+                huge_tree=True
+            )
+            for a, element in records_parsed:
+                # TODO: Adapter layer
+                entry = self._raw_to_internal_entry(element)
+
+                if self._filter(entry):
+                    yield entry
+
+    def update_record(cls, record, key, value):
+        """Update the value of a key in the MeSH record.
+
+        We deal with special cases of interest here.
+        """
+        if key == "AQ":
+            record[key] = [q.strip() for q in value.split()]
+        else:
+            record[key] = value

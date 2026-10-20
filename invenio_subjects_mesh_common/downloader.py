@@ -84,30 +84,35 @@ class MeSHDownloader:
         self.download_engine = download_engine
         self.file_for_terms = MeSHFileToDownload(
             paths_remote=[
-                f"{self.year}/asciimesh/d{self.year}.bin",
-                f"MESH_FILES/asciimesh/d{self.year}.bin",
-                f"MESH_FILES/mesh_browser/d{self.year}.bin",
+                # The .gz file hosted on MeSH site is actually not a .gz,
+                # so not using it for now. Re-visit later perhaps.
+                f"{self.year}/xmlmesh/desc{self.year}.xml",
+                f"MESH_FILES/xmlmesh/desc{self.year}.xml",
+                f"MESH_FILES/mesh_browser/desc{self.year}.xml",
             ],
-            path_local=self.directory / f"d{self.year}.bin",
+            path_local=self.directory / f"desc{self.year}.xml",
             download_engine=self.download_engine,
         )
-        self.file_for_qualifiers = MeSHFileToDownload(
-            paths_remote=[
-                f"{self.year}/asciimesh/q{self.year}.bin",
-                f"MESH_FILES/asciimesh/q{self.year}.bin",
-                f"MESH_FILES/mesh_browser/q{self.year}.bin",
-            ],
-            path_local=self.directory / f"q{self.year}.bin",
-            download_engine=self.download_engine,
-        )
-        self.file_for_new = MeSHFileToDownload(
-            paths_remote=[
-                f"{self.year}/newterms/meshnew{self.year}.txt",
-                f"MESH_FILES/newterms/meshnew{self.year}.txt",
-            ],
-            path_local=self.directory / f"meshnew{self.year}.txt",
-            download_engine=self.download_engine,
-        )
+        # Not needed
+        # self.file_for_qualifiers = MeSHFileToDownload(
+        #     paths_remote=[
+        #         f"{self.year}/asciimesh/q{self.year}.bin",
+        #         f"MESH_FILES/asciimesh/q{self.year}.bin",
+        #         f"MESH_FILES/mesh_browser/q{self.year}.bin",
+        #     ],
+        #     path_local=self.directory / f"q{self.year}.bin",
+        #     download_engine=self.download_engine,
+        # )
+
+        # Maybe needed
+        # self.file_for_new = MeSHFileToDownload(
+        #     paths_remote=[
+        #         f"{self.year}/newterms/meshnew{self.year}.txt",
+        #         f"MESH_FILES/newterms/meshnew{self.year}.txt",
+        #     ],
+        #     path_local=self.directory / f"meshnew{self.year}.txt",
+        #     download_engine=self.download_engine,
+        # )
         self.file_for_replace = MeSHFileToDownload(
             paths_remote=[
                 f"{self.year}/newterms/replace{self.year}.txt",
@@ -118,8 +123,8 @@ class MeSHDownloader:
         )
         self.files_to_download = [
             self.file_for_terms,
-            self.file_for_qualifiers,
-            self.file_for_new,
+            # self.file_for_qualifiers,  # not needed anymore
+            # self.file_for_new,
             self.file_for_replace,
         ]
 
@@ -133,15 +138,15 @@ class MeSHDownloader:
         """Downloaded terms filepath."""
         return self.file_for_terms.path_local
 
-    @property
-    def qualifiers_filepath(self):
-        """Downloaded qualifiers filepath."""
-        return self.file_for_qualifiers.path_local
+    # @property
+    # def qualifiers_filepath(self):
+    #     """Downloaded qualifiers filepath."""
+    #     return self.file_for_qualifiers.path_local
 
-    @property
-    def new_filepath(self):
-        """Downloaded meshnew filepath."""
-        return self.file_for_new.path_local
+    # @property
+    # def new_filepath(self):
+    #     """Downloaded meshnew filepath."""
+    #     return self.file_for_new.path_local
 
     @property
     def replace_filepath(self):
