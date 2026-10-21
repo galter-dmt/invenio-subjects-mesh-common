@@ -14,7 +14,7 @@ from invenio_subjects_mesh_common.reader import (
     MeSHNewReader,
     MeSHReplaceReader,
     MeSHXMLReader,
-    topic_filter_xml,
+    topic_filter,
 )
 
 # Utilities
@@ -29,10 +29,10 @@ def assert_includes(dicts, dict_cores):
 # Tests
 
 
-def test_reader_descriptors_filter():
+def test_descriptors_reader():
     filepath = Path(__file__).parent / "data" / "fake_desc2022.xml"
 
-    reader = MeSHXMLReader(filepath, filter=topic_filter_xml)
+    reader = MeSHXMLReader(filepath, filter=topic_filter)
     topics = [t for t in reader.iter_internal_entries()]
 
     expected_cores = [
@@ -99,37 +99,6 @@ def test_reader_descriptors_filter():
     assert_includes(topics, expected_cores)
 
 
-# def test_reader_qualifiers():
-#     filepath = Path(__file__).parent / "data" / "fake_q2023.bin"
-
-#     reader = MeSHReader(filepath)
-#     qualifiers = [q for q in reader]
-
-#     expected_cores = [
-#         {
-#             "QA": "AB",
-#             "SH": "abnormalities",
-#             "UI": "Q000002"
-#         },
-#         {
-#             "QA": "AH",
-#             "SH": "anatomy & histology",
-#             "UI": "Q000033"
-#         },
-#         {
-#             "QA": "CL",
-#             "SH": "classification",
-#             "UI": "Q000145"
-#         },
-#         {
-#             "QA": "EC",
-#             "SH": "economics",
-#             "UI": "Q000191"
-#         },
-#     ]
-#     assert_includes(qualifiers, expected_cores)
-
-
 def test_new_reader():
     filepath = Path(__file__).parent / "data" / "fake_meshnew2023.txt"
 
@@ -170,36 +139,36 @@ def test_replace_reader():
     filepath = Path(__file__).parent / "data" / "fake_replace2023.txt"
 
     reader = MeSHReplaceReader(filepath)
-    entries = [e for e in reader.read()]
+    entries = list(reader.iter_internal_entries())
 
     expected = [
         {
-            "MH OLD": "Far East",
-            "MH NEW": "Asia, Eastern",
+            "main_heading_old": "Far East",
+            "main_heading_new": "Asia, Eastern",
             "delete": "",
             "status": "P",
         },
         {
-            "MH OLD": "American Indians or Alaska Natives",
-            "MH NEW": "American Indian or Alaska Native",
+            "main_heading_old": "American Indians or Alaska Natives",
+            "main_heading_new": "American Indian or Alaska Native",
             "delete": "#",
             "status": "P",
         },
         {
-            "MH OLD": "Asians",
-            "MH NEW": "Asian People",
+            "main_heading_old": "Asians",
+            "main_heading_new": "Asian People",
             "delete": "",
             "status": "N*",
         },
         {
-            "MH OLD": "Whites",
-            "MH NEW": "White People",
+            "main_heading_old": "Whites",
+            "main_heading_new": "White People",
             "delete": "",
             "status": "P*",
         },
         {
-            "MH OLD": "RNA, Guide",
-            "MH NEW": "RNA, Guide, Kinetoplastida",
+            "main_heading_old": "RNA, Guide",
+            "main_heading_new": "RNA, Guide, Kinetoplastida",
             "delete": "",
             "status": "",
         }

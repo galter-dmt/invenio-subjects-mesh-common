@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2024 Northwestern University.
+# Copyright (C) 2021-2026 Northwestern University.
 #
 # invenio-subjects-mesh-common is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,7 +8,10 @@
 
 """Test MeSH-related conversion functionality."""
 
-from invenio_subjects_mesh_common.converter import MeSHRDMConverter
+from invenio_subjects_mesh_common.converter import (
+    MeSHRDMConverter,
+    MeSHRDMReplaceConverter,
+)
 
 
 def test_converter():
@@ -21,20 +24,8 @@ def test_converter():
                 {"id": "Q000191", "main_heading": "economics"},
             ],
             "id": "D000068098",
-        }
+        },
     ]
-    # qualifiers_mapping = {
-    #     "CL": {
-    #         "QA": "CL",
-    #         "SH": "classification",
-    #         "UI": "Q000145"
-    #     },
-    #     "EC": {
-    #         "QA": "EC",
-    #         "SH": "economics",
-    #         "UI": "Q000191"
-    #     }
-    # }
 
     converter = MeSHRDMConverter(internal_entries)
     subjects = [s for s in converter.iter_rdm_subjects(qualified=True)]
@@ -57,3 +48,35 @@ def test_converter():
         },
     ]
     assert expected == subjects
+
+
+def test_replace_converter():
+    replacements_internal = [
+        {
+            "main_heading_old": "Far East",
+            "main_heading_new": "Asia, Eastern",
+            "delete": "",
+            "status": "P",
+        },
+        {
+            "main_heading_old": "American Indians or Alaska Natives",
+            "main_heading_new": "American Indian or Alaska Native",
+            "delete": "#",
+            "status": "P",
+        },
+        {
+            "main_heading_old": "Asians",
+            "main_heading_new": "Asian People",
+            "delete": "",
+            "status": "N*",
+        },
+    ]
+
+    result = MeSHRDMReplaceConverter(replacements_internal).convert()
+
+    expected = {
+        "Far East": "Asia, Eastern",
+        "American Indians or Alaska Natives": "American Indian or Alaska Native",  # noqa
+        "Asians": "Asian People",
+    }
+    assert expected == result

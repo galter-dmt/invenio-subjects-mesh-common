@@ -44,3 +44,22 @@ class MeSHRDMConverter:
                     "scheme": self.mesh.name,
                     "subject": entry["main_heading"] + "/" + qualifier["main_heading"]  # noqa
                 }
+
+
+class MeSHRDMReplaceConverter:
+    """Convert internal MeSH replacement entries into RDM replacement dict."""
+
+    def __init__(self, internal_entries):
+        """Constructor.
+
+        :param internal_entries: iterable[dict] - MeSH replacment internal
+                                                  entries
+        """
+        self.internal_entries = internal_entries
+
+    def convert(self):
+        """Returns the full replacement dict."""
+        return {
+            e["main_heading_old"]: e["main_heading_new"]
+            for e in self.internal_entries
+        }

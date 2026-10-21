@@ -19,10 +19,9 @@ from galter_subjects_utils.keeptrace import KeepTrace
 from galter_subjects_utils.reader import get_rdm_subjects, mapping_by
 from galter_subjects_utils.writer import write_csv
 
-from .adapter import generate_replacements
-from .converter import MeSHRDMConverter
+from .converter import MeSHRDMConverter, MeSHRDMReplaceConverter
 from .downloader import MeSHDownloader, RequestsDownloader
-from .reader import MeSHReader, MeSHReplaceReader, topic_filter
+from .reader import MeSHReader, MeSHReplaceReader, MeSHXMLReader, topic_filter
 from .scheme import MeSHScheme
 
 defaults = {
@@ -40,29 +39,6 @@ def to_mesh_downloader_kwargs(parameters):
         "cache": not parameters["no_cache"],
         "directory": Path.cwd() / parameters["downloads_dir"]
     }
-
-    return result
-
-
-def to_mesh_converter_kwargs(parameters, downloader):
-    """Convert."""
-    result = {}
-
-    if parameters["filter"] in ["topic", "topic-qualifier"]:
-        result["topics"] = (
-            MeSHReader(
-                downloader.terms_filepath,
-                filter=topic_filter,
-            )
-            .read()
-        )
-    if parameters["filter"] in ["topic-qualifier"]:
-        result["qualifiers_mapping"] = (
-            mapping_by(
-                MeSHReader(downloader.qualifiers_filepath).read(),
-                by="QA"
-            )
-        )
 
     return result
 
@@ -125,24 +101,30 @@ def mesh_download(**parameters):
 @option_for_year
 def mesh_file(**parameters):
     """Generate new MeSH subjects file."""
-    # 'Empty' downloader just to pass it to converter, so that it can retrieve
+    # 'Empty' downloader just to pass it to reader, so that it can retrieve
     # relevant filepaths.
     downloader = MeSHDownloader(
         directory=parameters["downloads_dir"],
         year=parameters["year"],
     )
+
+    # Read
+    reader = MeSHXMLReader(
+        downloader.terms_filepath,
+        filter=topic_filter,
+    )
+
     # Convert
-    converter_kwargs = to_mesh_converter_kwargs(parameters, downloader)
-    converter = MeSHRDMConverter(**converter_kwargs)
+    converter = MeSHRDMConverter(reader.iter_internal_entries())
 
     # Write
     header = ["id", "scheme", "subject"]
     filepath = write_csv(
-        converter.convert(),
+        converter.iter_rdm_subjects(
+            qualified=(parameters["filter"] == "topic-qualifier")
+        ),
         parameters["output_file"],
-        writer_kwargs={
-            "fieldnames": header
-        }
+        writer_kwargs={"fieldnames": header},
     )
 
     print(f"MeSH terms written here {filepath}")
@@ -171,33 +153,27 @@ def mesh_deltas(**parameters):
     src = converted_to_subjects(subject_rdm_preexisting, mesh.prefix)
 
     # Destination subjects
-    subjects_fp = downloads_dir / f"d{year}.bin"
-    topics = MeSHReader(subjects_fp, filter=topic_filter).read()
-
-    if filter_ == "topic-qualifier":
-        qualifiers_fp = downloads_dir / f"q{year}.bin"
-        qualifiers_mapping = mapping_by(
-            MeSHReader(qualifiers_fp).read(),
-            by="QA"
-        )
-    else:
-        qualifiers_mapping = {}
-
-    converted = MeSHRDMConverter(topics, qualifiers_mapping).convert()
+    subjects_fp = downloads_dir / f"desc{year}.xml"
+    reader_dst = MeSHXMLReader(subjects_fp, filter=topic_filter)
+    entries = reader_dst.iter_internal_entries()
+    converted = MeSHRDMConverter(entries).iter_rdm_subjects(
+        qualified=(filter_ == "topic-qualifier")
+    )
     dst = converted_to_subjects(converted, mesh.prefix)
 
     # Replacements
     replace_fp = downloads_dir / f"replace{year}.txt"
-    replacements = generate_replacements(
-        MeSHReplaceReader(replace_fp).read()
+    replacements_internal = (
+        MeSHReplaceReader(replace_fp).iter_internal_entries()
     )
+    replacements_rdm = MeSHRDMReplaceConverter(replacements_internal).convert()
 
     ops = (
         DeltasGenerator(
             src_subjects=src,
             dst_subjects=dst,
             scheme=mesh,
-            replacements=replacements
+            replacements=replacements_rdm
         )
         .generate()
     )

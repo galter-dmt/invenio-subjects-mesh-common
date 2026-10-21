@@ -9,6 +9,7 @@
 """Read MeSH files."""
 
 import re
+import warnings
 
 from lxml import etree
 
@@ -17,11 +18,6 @@ from lxml import etree
 
 def topic_filter(record):
     """Filters for topical terms."""
-    return record.get("DC") == "1"
-
-
-def topic_filter_xml(record):
-    """Filters for topical terms for xml."""
     return record["descriptor_class"] == "1"
 
 
@@ -111,61 +107,109 @@ class MeSHReplaceReader:
         """Constructor."""
         self.filepath = filepath
 
-    def read(self):
+    def _parse_mh_line(self, line):
+        """Parse MH line from replace.txt.
+
+        :param line: str - MH line
+        :return: dict - {"lv": ..., "rv": ...}
+        """
+        lv, eq, rv = line.partition("=")
+        return {
+            "lv": lv.strip(),
+            "rv": rv.strip(),
+        }
+
+    def _parse_mh_old_line(self, line):
+        """Parse MH OLD line.
+
+        :param line: MH NEW line from replace.txt
+        :return: dict - {
+            "main_heading_old": ...,
+            "delete": ...,
+            "status": ...,
+        }
+        """
+        mh_parsed = self._parse_mh_line(line)
+        rv = mh_parsed["rv"]
+        # Actually search for end part of rv that we DON'T want.
+        # It has to be there for well-formed entries.
+        m = re.search(r"(#?) \[(\w\*?)?\]$", rv)
+        if not m:
+            warnings.warn(f"Malformed line: {line}")
+            return {}
+        return {
+            "main_heading_old": rv[:m.start()].strip(),
+            "delete": m.group(1) or "",
+            "status": m.group(2) or "",
+        }
+
+    def _parse_mh_new_line(self, line):
+        """Parse MH NEW line.
+
+        :param line: str - MH NEW line from replace.txt
+        :return: dict - {main_heading_new: ...}
+        """
+        mh_parsed = self._parse_mh_line(line)
+        rv = mh_parsed["rv"]
+        return {
+            "main_heading_new": rv,
+        }
+
+    def iter_internal_entries(self):
         """Read 'replace' file.
 
         This is a very simple parser that takes advantage of the
         structure of 'replace' files.
+
+        Problems we've encountered in the source files, that we account for:
+        - Malformed MH OLD line
+        - Missing MH NEW line
 
         Design:
         - lazy load file to reduce memory footprint during read
         Output:
             yield
             {
-                "MH OLD": "...",
-                "MH NEW": "...",
+                "main_heading_old": "...",
+                "main_heading_new": "...",
                 "delete": "...",
                 "status": "...",
             }
         """
+        MH_OLD_START = "MH OLD ="
+        MH_NEW_START = "MH NEW ="
         with open(self.filepath, 'r') as f:
             entry = {}
+            expect_mh = "old"
             for line in f:
                 line = line.strip()
-                valid_start = (
-                    line.startswith("MH OLD =") or
-                    line.startswith("MH NEW =")
-                )
-                if valid_start:
-                    lv, eq, rv = line.partition("=")
-                    lv = lv.strip()
-                    rv = rv.strip()
 
-                    if line.startswith("MH OLD ="):
-                        m = re.search(r"(#?) \[(\w\*?)?\]$", rv)
-                        if not m:
-                            raise Exception(f"Malformed line: {line}")
-                        piece = {
-                            lv: rv[:m.start()].strip(),
-                            "delete": m.group(1) or "",
-                            "status": m.group(2) or "",
-                        }
+                if expect_mh == "old":
+                    if line.startswith(MH_OLD_START):
+                        piece = self._parse_mh_old_line(line)
+                        if piece:
+                            entry.update(piece)
+                            expect_mh = "new"
                     else:
-                        piece = {lv: rv}
-
-                    entry.update(piece)
-
+                        pass
+                # assumed elif expect_mh == "new":
                 else:
-                    if entry:
+                    if line.startswith(MH_NEW_START):
+                        piece = self._parse_mh_new_line(line)
+                        # can't be empty so no need to check
+                        entry.update(piece)
                         yield entry
+                        expect_mh = "old"
                         entry = {}
-
-            if entry:
-                yield entry
+                    else:
+                        pass
 
 
 class MeSHXMLReader:
-    """MeSH XML Reader."""
+    """MeSH XML Reader.
+
+    Used to iteratively return internal entries from raw source.
+    """
 
     def __init__(self, filepath, filter=lambda r: True):
         """Constructor."""
@@ -201,19 +245,13 @@ class MeSHXMLReader:
                 tag="DescriptorRecord",
                 huge_tree=True
             )
-            for a, element in records_parsed:
-                # TODO: Adapter layer
+            for _, element in records_parsed:
                 entry = self._raw_to_internal_entry(element)
 
                 if self._filter(entry):
                     yield entry
 
-    def update_record(cls, record, key, value):
-        """Update the value of a key in the MeSH record.
-
-        We deal with special cases of interest here.
-        """
-        if key == "AQ":
-            record[key] = [q.strip() for q in value.split()]
-        else:
-            record[key] = value
+                # Free up memory so that iteration is low-memory-bound
+                element.clear()
+                while element.getprevious() is not None:
+                    del element.getparent()[0]

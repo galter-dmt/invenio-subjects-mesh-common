@@ -5,6 +5,8 @@ MH Changes and deletes
 [] = new status of old term (P = EP; N = EN or PT; C = SCR term; M = MH; null = old term not in New MeSH)
 * = old term in a different record than the new term
 
+MH OLD = Somatomedins
+
 MH OLD = Far East [P]
 MH NEW = Asia, Eastern
 
