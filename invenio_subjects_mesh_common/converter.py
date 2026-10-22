@@ -20,7 +20,6 @@ class MeSHRDMConverter:
         :param internal_entries: iterable[dict] - MeSH internal entries
         """
         self.internal_entries = internal_entries
-        # self.qualifiers_mapping = qualifiers_mapping
         self.mesh = MeSHScheme()
 
     def iter_rdm_subjects(self, qualified=False):

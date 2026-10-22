@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023-2024 Northwestern University.
+# Copyright (C) 2023-2026 Northwestern University.
 #
 # invenio-subjects-mesh-common is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -16,12 +16,12 @@ from flask.cli import with_appcontext
 from galter_subjects_utils.adapter import converted_to_subjects
 from galter_subjects_utils.deltor import DeltasGenerator
 from galter_subjects_utils.keeptrace import KeepTrace
-from galter_subjects_utils.reader import get_rdm_subjects, mapping_by
+from galter_subjects_utils.reader import get_rdm_subjects
 from galter_subjects_utils.writer import write_csv
 
 from .converter import MeSHRDMConverter, MeSHRDMReplaceConverter
 from .downloader import MeSHDownloader, RequestsDownloader
-from .reader import MeSHReader, MeSHReplaceReader, MeSHXMLReader, topic_filter
+from .reader import MeSHReplaceReader, MeSHXMLReader, topic_filter
 from .scheme import MeSHScheme
 
 defaults = {

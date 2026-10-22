@@ -58,26 +58,3 @@ def test_downloader(tmp_path):
 
     assert (downloads_dir / "desc2026.xml").exists()
     assert (downloads_dir / "replace2026.txt").exists()
-
-    # assert (downloads_dir / "meshnew2023.txt").exists()
-
-
-# def test_downloader_legacy(tmp_path):
-#     # Tests high level interfaces i.e., we have the right names, interfaces
-#     and
-#     # final files written to disk.
-#     # Full network and internals test done manually.
-#     downloads_dir = tmp_path / "downloads"
-#     downloads_dir.mkdir()
-
-#     downloader = MeSHDownloader(
-#         year="2023",
-#         directory=downloads_dir,
-#         download_engine=FakeRequestsDownloader(),
-#     )
-#     downloader.download()
-
-#     assert (downloads_dir / "d2023.bin").exists()
-#     assert (downloads_dir / "q2023.bin").exists()
-#     assert (downloads_dir / "meshnew2023.txt").exists()
-#     assert (downloads_dir / "replace2023.txt").exists()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2024 Northwestern University.
+# Copyright (C) 2021-2026 Northwestern University.
 #
 # invenio-subjects-mesh-common is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -122,7 +122,7 @@ class MeSHReplaceReader:
     def _parse_mh_old_line(self, line):
         """Parse MH OLD line.
 
-        :param line: MH NEW line from replace.txt
+        :param line: MH OLD line from replace.txt
         :return: dict - {
             "main_heading_old": ...,
             "delete": ...,
@@ -190,8 +190,6 @@ class MeSHReplaceReader:
                         if piece:
                             entry.update(piece)
                             expect_mh = "new"
-                    else:
-                        pass
                 # assumed elif expect_mh == "new":
                 else:
                     if line.startswith(MH_NEW_START):
@@ -201,8 +199,6 @@ class MeSHReplaceReader:
                         yield entry
                         expect_mh = "old"
                         entry = {}
-                    else:
-                        pass
 
 
 class MeSHXMLReader:
