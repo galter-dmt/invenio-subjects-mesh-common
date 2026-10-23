@@ -27,7 +27,7 @@ name = "invenio-subjects-mesh-common"
 readme = "README.md"
 requires-python = ">=3.11"
 urls = {Repository = "https://github.com/galter-dmt/invenio-subjects-mesh-common"}
-version = "0.3.0"
+version = "0.4.0"
 
 [project.optional-dependencies]
 dev = [
