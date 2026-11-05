@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021-2026 Northwestern University.
 #
@@ -11,7 +10,6 @@
 from pathlib import Path
 
 from invenio_subjects_mesh_common.reader import (
-    MeSHNewReader,
     MeSHReplaceReader,
     MeSHXMLReader,
     topic_filter,
@@ -97,42 +95,6 @@ def test_descriptors_reader():
         },
     ]
     assert_includes(topics, expected_cores)
-
-
-def test_new_reader():
-    filepath = Path(__file__).parent / "data" / "fake_meshnew2023.txt"
-
-    reader = MeSHNewReader(filepath)
-    entries = [e for e in reader.read()]
-
-    expected = [
-        {
-            "MH": "Document Analysis",
-            "UI": "D000092002",
-            "MN": "H1.770.644.241.850.375",
-            "MS": "A form of qualitative research that uses a systematic procedure to analyze documentary evidence and answer specific research questions.",  # noqa
-            "HN": "2023",
-        },
-        {
-            "MH": "Family Structure",
-            "UI": "D000092822",
-            "MN": "F1.829.263.315.250",
-            "MN": "I1.240.361.330",
-            "MN": "I1.880.761.125",
-            "MN": "I1.880.853.150.423.250",
-            "MN": "N1.224.361.330",
-            "MN": "N1.824.308.125",
-            "MN": "N6.850.505.400.400.580",
-            "MS": "Structural nature of relationships among members of a household typically in reference to a MINOR residing in the same home. More broadly any organizational framework that determines family membership, and the functions and hierarchical position of family members (https://eric.ed.gov/?qt=Family+Structure&ti=Family+Structure).",  # noqa
-            "HN": "2023; for STEPFAMILY and FAMILY, RECONSTITUTED use FAMILY 1996-2022; for MATRIARCHY and PATRIARCHY use FAMILY CHARACTERISTICS 1995-2022",  # noqa
-            "BX": "Family, Reconstituted",
-            "BX": "Reconstituted Family",
-            "BX": "Step-parent Family",
-            "BX": "Stepfamily",
-            "BX": "Stepparent Family",
-        }
-    ]
-    assert expected == entries
 
 
 def test_replace_reader():

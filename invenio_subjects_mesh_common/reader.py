@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021-2026 Northwestern University.
 #
@@ -68,36 +67,8 @@ class MeSHReader:
             record[key] = value
 
 
-class MeSHNewReader:
-    """Parser for MeSH new file."""
-
-    def __init__(self, filepath):
-        """Constructor."""
-        self.filepath = filepath
-
-    def read(self):
-        """Read iteratively 'meshnew' file.
-
-        This is a very simple parser that takes advantage of the
-        structure of 'meshnew' files.
-
-        Design:
-        - lazy load file to reduce memory footprint during read
-        """
-        with open(self.filepath, 'r') as f:
-            entry = {}
-            for line in f:
-                line = line.strip()
-                # partition always yields 3-tuple, values may be '' though
-                lv, dash, rv = line.partition("-")
-                if dash == "-":
-                    entry.update({lv.strip(): rv.strip()})
-                else:
-                    if entry:
-                        yield entry
-                        entry = {}
-            if entry:
-                yield entry
+# See git history for MeSHNewReader. It should be enhanced to actually work
+# properly.
 
 
 class MeSHReplaceReader:
@@ -113,7 +84,7 @@ class MeSHReplaceReader:
         :param line: str - MH line
         :return: dict - {"lv": ..., "rv": ...}
         """
-        lv, eq, rv = line.partition("=")
+        lv, _, rv = line.partition("=")
         return {
             "lv": lv.strip(),
             "rv": rv.strip(),

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021-2026 Northwestern University.
 #
@@ -26,7 +25,7 @@ class RequestsDownloader:
             if len(resp.history) != 0:
                 location = resp.history[0].headers.get("Location")
                 if location == "https://www.nlm.nih.gov/cgi/archive/error.cgi":
-                    raise Exception(f"{url} doesn't exist.")
+                    raise Exception(f"{url} doesn't exist.")  # noqa
 
             with open(dest_path, 'wb') as f:
                 for chunk in resp.iter_content(chunk_size=8192):
@@ -65,7 +64,7 @@ class MeSHFileToDownload:
                     self.path_local,
                 )
                 return
-            except Exception as e:
+            except Exception as e:  # noqa
                 print(f"Request failed: {e}")
                 last_exception = e
 

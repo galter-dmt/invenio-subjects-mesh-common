@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (C) 2021-2026 Northwestern University.
 #
@@ -23,14 +22,17 @@ class FakeRequestsDownloader:
         """Constructor."""
 
     def download_file(self, url, dest_path):
-        # It pretends that some known URLs it would attempt to download are
-        # invalid
+        """Fake download file.
+
+        It pretends that some known URLs it would attempt to download are
+        invalid.
+        """
         urls_invalid = [
             "https://nlmpubs.nlm.nih.gov/projects/mesh/2026/xmlmesh/desc2026.xml",  # noqa
             "https://nlmpubs.nlm.nih.gov/projects/mesh/MESH_FILES/xmlmesh/desc2026.xml",  # noqa
         ]
         if url in urls_invalid:
-            raise Exception(f"{url} doesn't exist.")
+            raise Exception(f"{url} doesn't exist.")  # noqa
 
         filename = url.rsplit("/", 1)[-1]
         fp = Path(__file__).parent / f"data/fake_{filename}"
