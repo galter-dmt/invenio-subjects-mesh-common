@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "galter-subjects-utils>=0.11.1,<2.0",
+    "galter-subjects-utils>=0.12.0,<2.0",
     "lxml>=6.1.1",
     "requests>=2.32.5",
 ]

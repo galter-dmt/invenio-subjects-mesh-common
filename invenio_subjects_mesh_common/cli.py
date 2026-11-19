@@ -12,13 +12,15 @@ from pathlib import Path
 
 import click
 from flask.cli import with_appcontext
-from galter_subjects_utils.adapter import converted_to_subjects
-from galter_subjects_utils.deltor import DeltasGenerator
-from galter_subjects_utils.keeptrace import KeepTrace
-from galter_subjects_utils.reader import get_rdm_subjects
+from galter_subjects_utils.deltas_generators import DeltasGenerator
+from galter_subjects_utils.reader import get_rdm_subjects, read_csv
+from galter_subjects_utils.serdes import DeltaSerdes, SubjectRDMSerdes
 from galter_subjects_utils.writer import write_csv
 
-from .converter import MeSHRDMConverter, MeSHRDMReplaceConverter
+from .converters import (
+    MeSHRDMConverter,
+    MeSHToDeltasGeneratorReplacementsConverter,
+)
 from .downloader import MeSHDownloader, RequestsDownloader
 from .reader import MeSHReplaceReader, MeSHXMLReader, topic_filter
 from .scheme import MeSHScheme
@@ -130,11 +132,20 @@ def mesh_file(**parameters):
 
 
 @mesh.command("deltas")
-@option_for_downloads_dir
-@option_for_year
-@option_for_filter
 @click.option(
-    "--output-file", "-o",
+    "--subjects-file",
+    "-s",
+    type=click.Path(path_type=Path, exists=True, dir_okay=False),
+    required=True,
+)
+@click.option(
+    "--replacements-file",
+    "-r",
+    type=click.Path(path_type=Path, exists=True, dir_okay=False),
+)
+@click.option(
+    "--output-file",
+    "-o",
     type=click.Path(path_type=Path),
     default=defaults["output-file"] / "deltas.csv",
 )
@@ -142,59 +153,75 @@ def mesh_file(**parameters):
 def mesh_deltas(**parameters):
     """Write MeSH subject delta operations to file."""
     print("Generating deltas...")
-    downloads_dir = parameters["downloads_dir"].expanduser()
-    year = parameters["year"]
-    filter_ = parameters["filter"]
+
     mesh = MeSHScheme()
+    subject_rdm_serdes = SubjectRDMSerdes()
 
     # Source subjects
-    subject_rdm_preexisting = get_rdm_subjects(scheme=mesh.name)
-    src = converted_to_subjects(subject_rdm_preexisting, mesh.prefix)
+    subjects_rdm_src = get_rdm_subjects(scheme=mesh.name)
+    src = (
+        subject_rdm_serdes.deserialize(s) for s in subjects_rdm_src
+    )
 
     # Destination subjects
-    subjects_fp = downloads_dir / f"desc{year}.xml"
-    reader_dst = MeSHXMLReader(subjects_fp, filter=topic_filter)
-    entries = reader_dst.iter_internal_entries()
-    converted = MeSHRDMConverter(entries).iter_rdm_subjects(
-        qualified=(filter_ == "topic-qualifier")
+    subjects_rdm_dst = read_csv(parameters["subjects_file"])
+    dst = (
+        subject_rdm_serdes.deserialize(s) for s in subjects_rdm_dst
     )
-    dst = converted_to_subjects(converted, mesh.prefix)
 
     # Replacements
-    replace_fp = downloads_dir / f"replace{year}.txt"
     replacements_internal = (
-        MeSHReplaceReader(replace_fp).iter_internal_entries()
+        MeSHReplaceReader(parameters["replacements_file"])
+        .iter_internal_entries()
     )
-    replacements_rdm = MeSHRDMReplaceConverter(replacements_internal).convert()
+    # Get iterables of Subjects used by replacement converter to provide the
+    # Subjects corresponding to the labels read from the replacement file.
+    # MeSH's replacement file maps old label to new label without providing id
+    # (!). Those are the same as the src and dst above but need to be
+    # duplicated because iterating over an iterable spends it.
+    # **Subjects data source for old labels**
+    # Potential TODO: filtering could be done at DB level to only get ones of
+    # interest
+    subjects_rdm_src = get_rdm_subjects(scheme=mesh.name)
+    subjects_pool_src = (
+        subject_rdm_serdes.deserialize(s) for s in subjects_rdm_src
+    )
+    # **Subjects data source for new labels**
+    subjects_rdm_dst = read_csv(parameters["subjects_file"])
+    subjects_pool_dst = (
+        subject_rdm_serdes.deserialize(s) for s in subjects_rdm_dst
+    )
+    # **Replacements used by DeltasGenerator**
+    replacement_converter = MeSHToDeltasGeneratorReplacementsConverter(
+        replacements_internal,
+        subjects_pool_src=subjects_pool_src,
+        subjects_pool_dst=subjects_pool_dst,
+    )
+    replacements = replacement_converter.convert()
 
-    ops = (
-        DeltasGenerator(
-            src_subjects=src,
-            dst_subjects=dst,
-            scheme=mesh,
-            replacements=replacements_rdm
-        )
-        .generate()
+    # Deltas
+    deltas_generator = DeltasGenerator(
+        src_subjects=src,
+        dst_subjects=dst,
+        replacements=replacements,
     )
-    # in-place
-    KeepTrace.mark(
-        ops,
-        # only can keep trace of *those* anyway
-        yes_logic=lambda op: op["type"] in ["rename", "replace", "remove"]
-    )
+    deltas = deltas_generator.iter_deltas()
 
+    delta_serdes = DeltaSerdes()
+    deltas_serialized = (delta_serdes.serialize(d) for d in deltas)
     deltas_fp = parameters["output_file"]
     header = [
-        "id",
         "type",
-        "scheme",
-        "subject",
-        "new_id",
-        "new_subject",
-        "keep_trace"
+        "id_src",
+        "scheme_src",
+        "subject_src",
+        "id_dst",
+        "scheme_dst",
+        "subject_dst",
+        "keep_trace",
     ]
     write_csv(
-        ops,
+        deltas_serialized,
         deltas_fp,
         writer_kwargs={
             "fieldnames": header
