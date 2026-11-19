@@ -1,5 +1,9 @@
 # Changes
 
+Version 0.4.1 (released 2026-11-19)
+
+- Shield from galter-subjects-utils 0.12.0 which brings breaking changes
+
 Version 0.4.0 (released 2026-10-22)
 
 - refactor!: switch from asciimesh to xmlmesh as source data
