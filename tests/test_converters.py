@@ -7,9 +7,11 @@
 
 """Test MeSH-related conversion functionality."""
 
-from invenio_subjects_mesh_common.converter import (
+from galter_subjects_utils.types_internal import Subject
+
+from invenio_subjects_mesh_common.converters import (
     MeSHRDMConverter,
-    MeSHRDMReplaceConverter,
+    MeSHToDeltasGeneratorReplacementsConverter,
 )
 
 
@@ -49,7 +51,38 @@ def test_converter():
     assert expected == subjects
 
 
-def test_replace_converter():
+def test_mesh_to_deltas_generator_replacements_converter():
+    # ids just need to be consistent here
+    subject_far_east = Subject(id="D005202", scheme="MeSH", label="Far East")
+    subject_asia_eastern = Subject(
+        id="D005202",
+        scheme="MeSH",
+        label="Asia, Eastern",
+    )
+    subject_natives = Subject(
+        id="D044467",
+        scheme="MeSH",
+        label="American Indians or Alaska Natives",
+    )
+    subject_native = Subject(
+        id="D044467",
+        scheme="MeSH",
+        label="American Indian or Alaska Native",
+    )
+    subject_asians = Subject(id="D044466", scheme="MeSH", label="Asians")
+    subject_asian_people = Subject(
+        id="D044466",
+        scheme="MeSH",
+        label="Asian People",
+    )
+
+    subjects_pool_src = [subject_far_east, subject_natives, subject_asians]
+    subjects_pool_dst = [
+        subject_asia_eastern,
+        subject_native,
+        subject_asian_people,
+    ]
+
     replacements_internal = [
         {
             "main_heading_old": "Far East",
@@ -69,13 +102,29 @@ def test_replace_converter():
             "delete": "",
             "status": "N*",
         },
+        # These two will not show up in final replacements dict
+        {
+            "main_heading_old": "Unknown source",
+            "main_heading_new": "Asian People",
+            "delete": "",
+            "status": "N*",
+        },
+        {
+            "main_heading_old": "Asians",
+            "main_heading_new": "Unknown destination",
+            "delete": "",
+            "status": "N*",
+        },
     ]
 
-    result = MeSHRDMReplaceConverter(replacements_internal).convert()
+    converter = MeSHToDeltasGeneratorReplacementsConverter(
+        replacements_internal, subjects_pool_src, subjects_pool_dst,
+    )
+    result = converter.convert()
 
     expected = {
-        "Far East": "Asia, Eastern",
-        "American Indians or Alaska Natives": "American Indian or Alaska Native",  # noqa
-        "Asians": "Asian People",
+        subject_far_east: subject_asia_eastern,
+        subject_natives: subject_native,
+        subject_asians: subject_asian_people,
     }
     assert expected == result
