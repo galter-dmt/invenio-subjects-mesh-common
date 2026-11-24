@@ -1,5 +1,14 @@
 # Changes
 
+Version 0.5.0 (released 2026-11-24)
+
+*Breaking changes*
+- feat: use new delta generator - `galter_subjects mesh deltas` CLI changes
+- remove unused (and incorrect) MeSHNewReader
+
+*Other changes*
+- lint: lint with ruff
+
 Version 0.4.0 (released 2026-10-22)
 
 - refactor!: switch from asciimesh to xmlmesh as source data
